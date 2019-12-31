@@ -7,10 +7,10 @@
 package main
 
 import (
-	"fmt"
-	"chap2/tempconv"
 	"chap2/lengthconv"
 	"chap2/popcount"
+	"chap2/tempconv"
+	"fmt"
 )
 
 const boilingF = 212.0
@@ -80,7 +80,7 @@ func gcd(x, y int) int {
 	//	y = x % y
 	//	x = y
 	//}
-	for y != 0 {  //简单写法
+	for y != 0 { //简单写法
 		x, y = y, x%y
 	}
 	return x
@@ -98,11 +98,11 @@ func fib(n int) int {
 	 * @Q:如果想返回前n个数的和怎么写
 	 */
 	x, y := 0, 1
-	for i:=0; i<n; i++ {
+	for i := 0; i < n; i++ {
 		x, y = y, x+y
 		//fmt.Printf("%d\t",x)
 	}
-	return x 	//y是第n+1个数
+	return x //y是第n+1个数
 }
 
 /*****************Dividing line*****************/
@@ -117,7 +117,7 @@ func fibSum(n int) int {
 	 */
 	x, y := 0, 1
 	var sum int
-	for i:=1; i<n; i++ {  //由于第一个数为0，sum可以不加，因此从1开始，略过第一个数的累加
+	for i := 1; i < n; i++ { //由于第一个数为0，sum可以不加，因此从1开始，略过第一个数的累加
 		x, y = y, x+y
 		sum += x
 	}
@@ -129,17 +129,17 @@ func fibSum(n int) int {
 var cwd string
 
 func init(){*/
-	/**
-	 * @Author: lichang
-	 * @date: 19-12-28   20:07
-	 * @Description: 这段代码有一个隐藏的bug，首先定义了一个包级变量cwd,然后在init函数里又
-	 * 使用:=重新定义了cwd和err，也就是说，init里的cwd和包级变量cwd其实不是一个变量，全局的cwd
-	 * 并没有被正确初始化，而且看似正常的日志输出更是会让这个bug更加隐晦
-	 * @Param:
-	 * @Return: 
-	 */
-	
-	/*cwd, err:=os.Getwd()
+/**
+ * @Author: lichang
+ * @date: 19-12-28   20:07
+ * @Description: 这段代码有一个隐藏的bug，首先定义了一个包级变量cwd,然后在init函数里又
+ * 使用:=重新定义了cwd和err，也就是说，init里的cwd和包级变量cwd其实不是一个变量，全局的cwd
+ * 并没有被正确初始化，而且看似正常的日志输出更是会让这个bug更加隐晦
+ * @Param:
+ * @Return:
+ */
+
+/*cwd, err:=os.Getwd()
 	if err != nil{
 		log.Fatalf("os.Getwd failed : %v\n", err)
 	}
