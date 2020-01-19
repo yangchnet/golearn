@@ -10,7 +10,6 @@ package links
 import (
 	"fmt"
 	"net/http"
-
 	"golang.org/x/net/html"
 )
 
