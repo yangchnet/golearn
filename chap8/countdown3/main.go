@@ -14,10 +14,10 @@ func main() {
 	}()
 
 	fmt.Println("commencing countdown. Press return to abort")
-	tick := time.Tick(1 * time.Second)
-	for countdown := 10; countdown > 0;countdown--{
+	tick := time.Tick(1 * time.Second) // goroutine泄露
+	for countdown := 10; countdown > 0; countdown-- {
 		fmt.Println(countdown)
-		select{
+		select {
 		case <-tick:
 			// do nothing
 		case <-abort:
