@@ -7,7 +7,7 @@ import (
 	"net"
 )
 
-func main(){
+func main() {
 	listener, err := net.Listen("tcp", "localhost:8000")
 	if err != nil {
 		log.Fatal(err)
@@ -23,32 +23,32 @@ func main(){
 	}
 }
 
-type client chan <- string
+type client chan<- string
 
 var (
-	entering = make(chan client)	// 加入
-	leaving = make(chan client)		// 离开
+	entering = make(chan client) // 加入
+	leaving  = make(chan client) // 离开
 	messages = make(chan string) // 传递的消息
 )
 
-func broadcaster(){
+func broadcaster() {
 	clients := make(map[client]bool)
 	for {
-		select{
+		select {
 		case msg := <-messages:
-			for cli := range clients{
+			for cli := range clients {
 				cli <- msg
 			}
-		case cli := <- entering:
+		case cli := <-entering:
 			clients[cli] = true
-		case cli := <- leaving:
-			delete(clients ,cli)
+		case cli := <-leaving:
+			delete(clients, cli)
 			close(cli)
 		}
 	}
 }
 
-func handleConn(conn net.Conn){
+func handleConn(conn net.Conn) {
 	ch := make(chan string)
 	go clientWriter(conn, ch)
 
@@ -58,7 +58,7 @@ func handleConn(conn net.Conn){
 	entering <- ch
 
 	input := bufio.NewScanner(conn)
-	for input.Scan(){
+	for input.Scan() {
 		messages <- who + ": " + input.Text()
 	}
 	leaving <- ch
@@ -66,9 +66,8 @@ func handleConn(conn net.Conn){
 	conn.Close()
 }
 
-func clientWriter(conn net.Conn, ch <- chan string){
-	for msg := range ch{
+func clientWriter(conn net.Conn, ch <-chan string) {
+	for msg := range ch {
 		fmt.Fprintln(conn, msg)
 	}
 }
-
